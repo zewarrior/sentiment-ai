@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sh '''
                     docker run --rm \
-                    -v $WORKSPACE:/workspace \
+                    -v "$(pwd)":/workspace \
                     -w /workspace \
                     python:3.12-slim \
                     sh -c "pip install flake8 -q && flake8 src/ --max-line-length=100"
