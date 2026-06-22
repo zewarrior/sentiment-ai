@@ -17,17 +17,17 @@ pipeline {
             }
         }
 
-        stage('Lint') {
-            steps {
-                sh '''
-                    docker run --rm \
-                    -v "$(pwd)":/workspace \
-                    -w /workspace \
-                    python:3.12-slim \
-                    sh -c "pip install flake8 -q && flake8 src/ --max-line-length=100"
-                '''
-            }
-        }
+       stage('Lint') {
+    steps {
+        sh '''
+            docker run --rm \
+            --volumes-from jenkins \
+            -w $WORKSPACE \
+            python:3.12-slim \
+            sh -c "pip install flake8 -q && flake8 src/ --max-line-length=100"
+        '''
+    }
+}
 
         stage('Build & Test') {
             steps {
