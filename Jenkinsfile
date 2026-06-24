@@ -38,6 +38,7 @@ pipeline {
                     TEST_EXIT_CODE=$?
                     set -e
                     docker cp test-runner:/tmp/coverage.xml ./coverage.xml 2>/dev/null || true
+sed -i 's|/app/src|/var/jenkins_home/workspace/sentiment-ai-pipeline/src|g' ./coverage.xml || true
                     docker rm -f test-runner 2>/dev/null || true
                     exit $TEST_EXIT_CODE
                 '''
