@@ -67,7 +67,7 @@ pipeline {
                             -Dsonar.projectBaseDir="$WORKSPACE" \
                             -Dsonar.sources=src \
                             -Dsonar.python.version=3.11 \
-                            -Dsonar.python.coverage.reportPaths=coverage.xml \
+                            -Dsonar.python.coverage.reportPaths=/var/jenkins_home/workspace/sentiment-ai-pipeline/coverage.xml \
                             -Dsonar.sourceEncoding=UTF-8 \
                             -Dsonar.scanner.metadataFilePath=$WORKSPACE/report-task.txt
                     '''
