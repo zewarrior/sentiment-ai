@@ -59,7 +59,6 @@ pipeline {
         stage('SonarQube Analysis') {
     environment { SONARQUBE_TOKEN = credentials('sonar-token') }
     steps {
-        sh 'rm -rf /tmp/.scannerwork || true'
         withSonarQubeEnv('sonarqube') {
             sh '''
                 docker run --rm --network cicd-network --volumes-from jenkins \
@@ -69,6 +68,7 @@ pipeline {
                 sonarsource/sonar-scanner-cli:latest \
                 sonar-scanner -Dsonar.projectKey=sentiment-ai \
                 -Dsonar.sources=src \
+                -Dsonar.working.directory="$WORKSPACE/.scannerwork" \
                 -Dsonar.python.coverage.reportPaths=coverage.xml
             '''
         }
